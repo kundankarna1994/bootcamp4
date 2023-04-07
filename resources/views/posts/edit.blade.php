@@ -1,7 +1,8 @@
 @extends("layouts.default")
 
 @section("content")
-    <form class="row g-3 needs-validation" novalidate>
+    <form class="row g-3 needs-validation" action="{{route("categories.update",$model->id)}}" method="PUT">
+        @csrf
         <div class="col-md-4">
             <label for="validationCustom01" class="form-label">First name</label>
             <input type="text" class="form-control is-invalid" id="validationCustom01" value="Mark" required>

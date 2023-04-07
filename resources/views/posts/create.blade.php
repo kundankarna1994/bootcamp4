@@ -1,7 +1,8 @@
 @extends("layouts.default")
 
 @section("content")
-    <form class="row g-3 needs-validation">
+    <form class="row g-3 needs-validation" action="{{route("posts.store")}}" method="POST">
+        @csrf
         <div class="col-md-12">
             <label for="validationCustom01" class="form-label">Category</label>
             <select class="form-select" aria-label="Default select example">
