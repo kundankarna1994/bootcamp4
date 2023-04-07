@@ -29,7 +29,7 @@ class PostCategoryController extends Controller
      */
     public function store(StorePostCategoryRequest $request)
     {
-        //
+
     }
 
     /**
