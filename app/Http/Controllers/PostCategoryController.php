@@ -13,7 +13,7 @@ class PostCategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view("categories.index");
     }
 
     /**
@@ -21,7 +21,7 @@ class PostCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view("categories.create");
     }
 
     /**
@@ -45,7 +45,7 @@ class PostCategoryController extends Controller
      */
     public function edit(PostCategory $postCategory)
     {
-        //
+        return view("categories.edit");
     }
 
     /**

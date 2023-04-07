@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("title");
             $table->string("slug");
             $table->text("content");
-            $table->boolean("published");
+            $table->boolean("published")->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
