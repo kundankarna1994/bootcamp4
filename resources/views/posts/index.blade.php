@@ -13,15 +13,25 @@
                 <th>Action</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>Category Title</td>
-                <td>Post Title</td>
-                <td>Post Slug</td>
-                <td>1</td>
-                <td>Edit Delete</td>
-            </tr>
-            </tbody>
+            @forelse($records as $model)
+                <tr>
+                    <td>{{$model->category->name}}</td>
+                    <td>{{ $model->title }}</td>
+                    <td>{{ $model->slug }}</td>
+
+                    <td  class="d-flex justify-content-around w-25">
+                        <a class="btn btn-info" href="{{ route("categories.edit",['category' => $model->id]) }}">Edit</a>
+                        <form action="{{ route("categories.destroy",['category' => $model->id]) }}" method="POST">
+                            @csrf
+                            @method("DELETE")
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form></td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="4">No Records Found</td>
+                </tr>
+            @endforelse
         </table>
     </div>
 @endsection

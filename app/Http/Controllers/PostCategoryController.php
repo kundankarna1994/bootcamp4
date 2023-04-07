@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostCategoryRequest;
 use App\Http\Requests\UpdatePostCategoryRequest;
 use App\Models\PostCategory;
+use Illuminate\Support\Str;
 
 class PostCategoryController extends Controller
 {
@@ -13,7 +14,10 @@ class PostCategoryController extends Controller
      */
     public function index()
     {
-        return view("categories.index");
+        $records = PostCategory::withCount('posts')->get();
+        return view("categories.index",[
+            'records' => $records
+        ]);
     }
 
     /**
@@ -29,13 +33,16 @@ class PostCategoryController extends Controller
      */
     public function store(StorePostCategoryRequest $request)
     {
-
+        $data = $request->all();
+        $data["slug"] = Str::slug($data["title"]);
+        $model = PostCategory::create($data);
+        return redirect()->route("categories.index");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(PostCategory $postCategory)
+    public function show(PostCategory $category)
     {
         //
     }
@@ -43,24 +50,30 @@ class PostCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PostCategory $postCategory)
+    public function edit(PostCategory $category)
     {
-        return view("categories.edit");
+        return view("categories.edit",[
+            'model' => $category
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostCategoryRequest $request, PostCategory $postCategory)
+    public function update(UpdatePostCategoryRequest $request, PostCategory $category)
     {
-        //
+        $data = $request->all();
+        $data["slug"] = Str::slug($data["title"]);
+        $category->update($data);
+        return redirect()->route("categories.index");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PostCategory $postCategory)
+    public function destroy(PostCategory $category)
     {
-        //
+        $category->delete();
+        return redirect()->route("categories.index");
     }
 }
